@@ -35,13 +35,13 @@ class backup_qtype_order_plugin extends backup_qtype_plugin {
      */
     protected function define_question_plugin_structure() {
 
-        // Define the virtual plugin element with the condition to fulfill
+        // Define the virtual plugin element with the condition to fulfill.
         $plugin = $this->get_plugin_element(null, '../../qtype', 'order');
 
-        // Create one standard named plugin element (the visible container)
+        // Create one standard named plugin element (the visible container).
         $pluginwrapper = new backup_nested_element($this->get_recommended_name());
 
-        // connect the visible container ASAP
+        // Connect the visible container ASAP.
         $plugin->add_child($pluginwrapper);
 
         // Now create the qtype own structures
@@ -54,17 +54,16 @@ class backup_qtype_order_plugin extends backup_qtype_plugin {
 
         $order = new backup_nested_element('order', ['id'], ['code', 'questiontext', 'questiontextformat', 'answertext']);
 
-        // Now the own qtype tree
+        // Now the own qtype tree.
         $pluginwrapper->add_child($orderoptions);
         $pluginwrapper->add_child($orders);
         $orders->add_child($order);
 
-        // set source to populate the data
+        // Set source to populate the data.
         $orderoptions->set_source_table('question_order', ['question' => backup::VAR_PARENTID]);
         $order->set_source_table('question_order_sub', ['question' => backup::VAR_PARENTID]);
 
-        // don't need to annotate ids nor files
-
+        // Don't need to annotate ids nor files.
         return $plugin;
     }
 

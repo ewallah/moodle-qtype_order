@@ -95,7 +95,7 @@ class qtype_order_qe2_attempt_updater extends question_qtype_attempt_updater {
         foreach ($bits as $bit) {
             $data = explode('-', $bit);
 
-           // ignore the "no" or "yes" piece
+            // Ignore the "no" or "yes" piece.
             if (count($data) == 2) {
                 list($stem, $choice) = $data;
                 if (isset($this->code2subid[$stem])) {
@@ -165,7 +165,7 @@ class qtype_order_qe2_attempt_updater extends question_qtype_attempt_updater {
         if (null === $this->stemorder && $answer) {
             $bits = explode(',', $answer);
             foreach ($bits as $bit) {
-                //todo: fix this, not always two pieces here
+                // TODO: Fix this, not always two pieces here
                 $data = explode('-', $bit);
                 if (count($data) == 2) {
                     $stem = $data[0];
@@ -180,14 +180,13 @@ class qtype_order_qe2_attempt_updater extends question_qtype_attempt_updater {
         $this->choiceorder = array_keys($this->choices);
         $answertexts = array_flip($this->choices);
         ksort($answertexts);
-        $choiceorder = array_values($answertexts);  // gets the subquestion ids in the order defined by the answertext field
+        $choiceorder = array_values($answertexts);  // Gets the subquestion ids in the order defined by the answertext field.
         $data['_stemorder'] = implode(',', $this->get_stemorder($state->answer));
         $data['_choiceorder'] = implode(',', $choiceorder);
     }
 
     public function supply_missing_first_step_data(&$data) {
-        throw new coding_exception('qtype_order_updater::supply_missing_first_step_data ' .
-                'not tested');
+        throw new coding_exception('qtype_order_updater::supply_missing_first_step_data not tested');
         $data['_stemorder'] = array_keys($this->stems);
         $data['_choiceorder'] = array_keys($this->choices);
     }

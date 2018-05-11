@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 function xmldb_qtype_order_upgrade($oldversion) {
-    global $CFG, $DB, $QTYPES;
+    global $CFG, $DB;
 
     $dbman = $DB->get_manager();
 

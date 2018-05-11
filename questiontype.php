@@ -142,10 +142,10 @@ class qtype_order extends question_type {
 
         foreach ($questiondata->options->subquestions as $matchsub) {
             $ans = $matchsub->answertext;
-            $key = array_search($matchsub->answertext, $question->choices);
+            $key = array_search($ans, $question->choices);
             if ($key === false) {
                 $key = $matchsub->id;
-                $question->choices[$key] = $matchsub->answertext;
+                $question->choices[$key] = $ans;
             }
 
             if ($matchsub->questiontext !== '') {
@@ -232,18 +232,18 @@ class qtype_order extends question_type {
         $expout = '';
         $fs = get_file_storage();
         $contextid = $question->contextid;
-        $expout .= "    <horizontal>" . $question->options->horizontal . "</horizontal>\n";
-		$expout .= $format->write_combined_feedback($question->options, $question->id, $question->contextid);
-        foreach($question->options->subquestions as $subquestion) {
+        $expout .= "<horizontal>" . $question->options->horizontal . "</horizontal>\n";
+        $expout .= $format->write_combined_feedback($question->options, $question->id, $question->contextid);
+        foreach ($question->options->subquestions as $subquestion) {
             $files = $fs->get_area_files($contextid, 'qtype_order', 'subquestion', $subquestion->id);
             $textformat = $format->get_format($subquestion->questiontextformat);
-            $expout .= "    <subquestion format=\"$textformat\">\n";
-            $expout .= $format->writetext( $subquestion->questiontext, 3);
+            $expout .= "<subquestion format=\"$textformat\">\n";
+            $expout .= $format->writetext($subquestion->questiontext, 3);
             $expout .= $format->write_files($files);
-            $expout .= "      <answer>\n";
-			$expout .= $format->writetext( $subquestion->answertext, 4);
-			$expout .= "      </answer>\n";
-            $expout .= "    </subquestion>\n";
+            $expout .= "<answer>\n";
+            $expout .= $format->writetext($subquestion->answertext, 4);
+            $expout .= "</answer>\n";
+            $expout .= "</subquestion>\n";
         }
         return $expout;
     }
@@ -257,15 +257,15 @@ class qtype_order extends question_type {
     * @return object question object suitable for save_options() call or false if cannot handle
     **/
     public function import_from_xml($data, $question, qformat_xml $format, $extra=null) {
-       // Check question is for us.
-       $qtype = $data['@']['type'];
-       if ($qtype=='order') {
-           $question = $format->import_headers( $data );
+        // Check question is for us.
+        $qtype = $data['@']['type'];
+        if ($qtype == 'order') {
+            $question = $format->import_headers($data);
 
             // Header parts particular to matching.
             $question->qtype = $qtype;
             $question->shuffleanswers = 1;
-            $question->horizontal = $format->getpath( $data, ['#','horizontal',0,'#'], 1 );
+            $question->horizontal = $format->getpath( $data, ['#', 'horizontal', 0, '#'], 1 );
 
             // Get subquestions.
             $subquestions = $data['#']['subquestion'];
@@ -288,14 +288,14 @@ class qtype_order extends question_type {
                     $qo['files'][] = $record;
                 }
                 $question->subquestions[] = $qo;
-				$ans = $format->getpath($subquestion, ['#', 'answer', 0], []);
+                $ans = $format->getpath($subquestion, ['#', 'answer', 0], []);
                 $question->subanswers[] = $ans;
             }
-			$format->import_combined_feedback($question, $data, true);
-			$format->import_hints($question, $data, true);
+            $format->import_combined_feedback($question, $data, true);
+            $format->import_hints($question, $data, true);
             return $question;
        } else {
            return false;
        }
-    } 
+    }
 }

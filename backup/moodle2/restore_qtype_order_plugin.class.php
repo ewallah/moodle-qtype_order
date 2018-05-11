@@ -63,20 +63,23 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
         $newquestionid   = $this->get_new_parentid('question');
         $questioncreated = $this->get_mappingid('question_created', $oldquestionid) ? true : false;
 
-        // If the question has been created by restore, we need to create its question_order too
+        // If the question has been created by restore, we need to create its question_order too.
         if ($questioncreated) {
             // Adjust some columns.
             $data->question = $newquestionid;
-			if(!isset($data->correctfeedback)){ $data->correctfeedback =" ";}
-			if(!isset($data->partiallycorrectfeedback)){ $data->partiallycorrectfeedback =" ";}
-			if(!isset($data->incorrectfeedback)){ $data->incorrectfeedback =" ";}
-
+			if (!isset($data->correctfeedback)) {
+                $data->correctfeedback = " ";
+            }
+			if (!isset($data->partiallycorrectfeedback)) {
+                $data->partiallycorrectfeedback = " ";
+            }
+			if (!isset($data->incorrectfeedback)) {
+                $data->incorrectfeedback = " ";
+            }
             // Insert record.
             $newitemid = $DB->insert_record('question_order', $data);
             // Create mapping.
             $this->set_mapping('question_order', $oldid, $newitemid);
-        } else {
-            // Nothing to remap if the question already existed.
         }
     }
 
@@ -89,7 +92,7 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
         $data = (object)$data;
         $oldid = $data->id;
 
-        // Detect if the question is created or mapped
+        // Detect if the question is created or mapped.
         $oldquestionid   = $this->get_old_parentid('question');
         $newquestionid   = $this->get_new_parentid('question');
         $questioncreated = $this->get_mappingid('question_created', $oldquestionid) ? true : false;
@@ -103,8 +106,6 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
             // Create mapping (there are files and states based on this).
             $this->set_mapping('question_order_sub', $oldid, $newitemid);
 
-        // Order questions require mapping of question_order_sub, because
-        // they are used by question_states->answer.
         } else {
             // Look for ordering subquestion (by question, questiontext and answertext).
             $sub = $DB->get_record_select('question_order_sub', 'question = ? AND ' .
@@ -117,8 +118,8 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
             // Found, let's create the mapping.
             if ($sub) {
                 $this->set_mapping('question_order_sub', $oldid, $sub->id);
-            // Something went really wrong, cannot map subquestion for one order question.
             } else {
+                // Something went really wrong, cannot map subquestion for one order question.
                 throw restore_step_exception('error_question_order_sub_missing_in_db', $data);
             }
         }
@@ -136,7 +137,7 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
     public function after_execute_question() {
         global $DB;
         // Now that all the question_order_subs have been restored, let's process
-        // the created question_order subquestions (list of question_order_sub ids)
+        // the created question_order subquestions (list of question_order_sub ids).
         $rs = $DB->get_recordset_sql("SELECT qm.id, qm.subquestions
                                         FROM {question_order} qm
                                         JOIN {backup_ids_temp} bi ON bi.newitemid = qm.question

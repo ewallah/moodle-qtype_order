@@ -149,7 +149,6 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
         }
         $o .= html_writer::tag('div', '', ['class' => 'clearer']);
         $o = html_writer::tag('ul', $o, ['id' => 'ul_'.$question->id, 'class' => $classes]);
-        
         $attributes = [
                 'id'        => 'ch_'.$question->id,
                 'name'      => $qa->get_qt_field_name($fieldname),
