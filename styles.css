@@ -13,7 +13,7 @@ ul.draglist li {
     padding: 4px;
     cursor: move;
     background-color: white;
-    border:1px solid black;
+    border: 1px solid black;
     list-style: none;
 }
 
@@ -32,13 +32,13 @@ ul.deactivateddraglist li {
     padding: 4px;
     cursor: default;
     background-color: lightgray;
-    border:1px solid gray;
+    border: 1px solid gray;
     list-style: none;
 }
 
-
-ul.inline li, ul.inline p {
-    float:left;
+ul.inline li,
+ul.inline p {
+    float: left;
 }
 
 ul.readonly li {

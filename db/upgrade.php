@@ -158,7 +158,7 @@ function xmldb_qtype_order_upgrade($oldversion) {
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
-        upgrade_plugin_savepoint(true, 2011080900, 'qtype', 'order');
+        upgrade_plugin_savepoint(true, 2011011300, 'qtype', 'order');
     }
     return true;
 }

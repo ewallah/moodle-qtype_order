@@ -44,7 +44,7 @@ class backup_qtype_order_plugin extends backup_qtype_plugin {
         // Connect the visible container ASAP.
         $plugin->add_child($pluginwrapper);
 
-        // Now create the qtype own structures
+        // Now create the qtype own structures.
         $orderoptions = new backup_nested_element('orderoptions', ['id'], [
             'subquestions', 'horizontal', 'correctfeedback', 'correctfeedbackformat',
             'partiallycorrectfeedback', 'partiallycorrectfeedbackformat',

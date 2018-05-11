@@ -165,7 +165,7 @@ class qtype_order_qe2_attempt_updater extends question_qtype_attempt_updater {
         if (null === $this->stemorder && $answer) {
             $bits = explode(',', $answer);
             foreach ($bits as $bit) {
-                // TODO: Fix this, not always two pieces here
+                // TODO: Fix this, not always two pieces here.
                 $data = explode('-', $bit);
                 if (count($data) == 2) {
                     $stem = $data[0];

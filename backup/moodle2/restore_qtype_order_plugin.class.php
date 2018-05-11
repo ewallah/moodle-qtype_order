@@ -67,13 +67,13 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
         if ($questioncreated) {
             // Adjust some columns.
             $data->question = $newquestionid;
-			if (!isset($data->correctfeedback)) {
+            if (!isset($data->correctfeedback)) {
                 $data->correctfeedback = " ";
             }
-			if (!isset($data->partiallycorrectfeedback)) {
+            if (!isset($data->partiallycorrectfeedback)) {
                 $data->partiallycorrectfeedback = " ";
             }
-			if (!isset($data->incorrectfeedback)) {
+            if (!isset($data->incorrectfeedback)) {
                 $data->incorrectfeedback = " ";
             }
             // Insert record.

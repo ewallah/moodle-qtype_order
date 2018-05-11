@@ -224,7 +224,7 @@ class qtype_order extends question_type {
      * Provide export functionality for xml format.
      *
      * @param question object the question object
-     * @param format object the format object so that helper methods can be used 
+     * @param format object the format object so that helper methods can be used
      * @param extra mixed any additional format specific data that may be passed by the format (see format code for info)
      * @return string the data to append to the output buffer or false if error
      **/
@@ -248,7 +248,7 @@ class qtype_order extends question_type {
         return $expout;
     }
 
-   /**
+    /**
     * Provide import functionality for xml format
     * @param data mixed the segment of data containing the question
     * @param question object question object processed (so far) by standard import code
@@ -294,8 +294,8 @@ class qtype_order extends question_type {
             $format->import_combined_feedback($question, $data, true);
             $format->import_hints($question, $data, true);
             return $question;
-       } else {
-           return false;
-       }
+        } else {
+            return false;
+        }
     }
 }
