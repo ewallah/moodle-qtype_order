@@ -31,7 +31,7 @@ defined('MOODLE_INTERNAL') || die();
  */
 class qtype_order_edit_form extends question_edit_form {
 
-    function get_per_answer_fields($mform, $label, $gradeoptions, &$repeatedoptions, &$answersoption) {
+    public function get_per_answer_fields($mform, $label, $gradeoptions, &$repeatedoptions, &$answersoption) {
         $repeated = [];
         $repeated[] = $mform->createElement('header', 'answerhdr', $label);
         $repeated[] = $mform->createElement('editor', 'subquestions', get_string('question'), null, $this->editoroptions);
@@ -39,7 +39,7 @@ class qtype_order_edit_form extends question_edit_form {
         $repeatedoptions['subquestions']['type'] = PARAM_RAW;
         $repeatedoptions['subanswers']['type'] = PARAM_TEXT;
         $answersoption = 'subquestions';
-        
+
         return $repeated;
     }
 
@@ -48,8 +48,8 @@ class qtype_order_edit_form extends question_edit_form {
      *
      * @param object $mform the form being built.
      */
-    function definition_inner($mform) {
-        $mform->addElement('advcheckbox', 'horizontal', get_string('horizontal', 'qtype_order'), null, null, [0,1]);
+    public function definition_inner($mform) {
+        $mform->addElement('advcheckbox', 'horizontal', get_string('horizontal', 'qtype_order'), null, null, [0, 1]);
         $mform->setDefault('horizontal', 0);
 
         $mform->addElement('static', 'answersinstruct',
@@ -63,7 +63,7 @@ class qtype_order_edit_form extends question_edit_form {
         $this->add_interactive_settings(true, true);
     }
 
-    function data_preprocessing($question) {
+    public function data_preprocessing($question) {
         $question = parent::data_preprocessing($question);
         $question = $this->data_preprocessing_combined_feedback($question, true);
         $question = $this->data_preprocessing_hints($question, true, true);
@@ -112,13 +112,13 @@ class qtype_order_edit_form extends question_edit_form {
         }
         $numberqanda = new stdClass;
         $numberqanda->q = 3;
-        if ($questioncount < 1){
+        if ($questioncount < 1) {
             $errors['subquestions[0]'] = get_string('notenoughqsandas', 'qtype_match', $numberqanda);
         }
-        if ($questioncount < 2){
+        if ($questioncount < 2) {
             $errors['subquestions[1]'] = get_string('notenoughqsandas', 'qtype_match', $numberqanda);
         }
-        if ($questioncount < 3){
+        if ($questioncount < 3) {
             $errors['subquestions[2]'] = get_string('notenoughqsandas', 'qtype_match', $numberqanda);
         }
         return $errors;

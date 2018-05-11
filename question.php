@@ -44,11 +44,12 @@ class qtype_order_question extends qtype_match_question {
         $step->set_qt_var('_choiceorder', implode(',', $choiceorder));
         $this->set_choiceorder($choiceorder);
     }
-    
+
     public function get_num_parts_right(array $response) {
         $fieldname = $this->get_dontknow_field_name();
-        if (array_key_exists($fieldname, $response) and $response[$fieldname])
+        if (array_key_exists($fieldname, $response) and $response[$fieldname]) {
             return [0, count($this->stemorder)];
+        }
         return parent::get_num_parts_right($response);
     }
 
@@ -57,27 +58,26 @@ class qtype_order_question extends qtype_match_question {
         $vars[$this->get_dontknow_field_name()] = PARAM_ALPHA;
         return $vars;
     }
-    
+
     public function get_field_name($key) {
         return $this->field($key);
     }
-    
+
     public function get_dontknow_field_name() {
         return 'dontknow'.$this->id;
     }
 
     public function check_file_access($qa, $options, $component, $filearea, $args, $forcedownload) {
         if ($component == 'qtype_order' && $filearea == 'subquestion') {
-            $subqid = reset($args); // itemid is sub question id
+            $subqid = reset($args); // Itemid is sub question id.
             return array_key_exists($subqid, $this->stems);
-        } else if ($component == 'question' && in_array($filearea,
-            ['correctfeedback', 'partiallycorrectfeedback', 'incorrectfeedback'])) {
+        } else if ($component == 'question' &&
+           in_array($filearea, ['correctfeedback', 'partiallycorrectfeedback', 'incorrectfeedback'])) {
             return $this->check_combined_feedback_file_access($qa, $options, $filearea);
         } else if ($component == 'question' && $filearea == 'hint') {
             return $this->check_hint_file_access($qa, $options, $args);
         } else {
-            return parent::check_file_access($qa, $options, $component, $filearea,
-                    $args, $forcedownload);
+            return parent::check_file_access($qa, $options, $component, $filearea, $args, $forcedownload);
         }
     }
 }

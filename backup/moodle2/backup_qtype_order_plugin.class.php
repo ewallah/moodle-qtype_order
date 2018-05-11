@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,9 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    moodlecore
- * @subpackage backup-moodle2
- * @copyright  2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
+ * Backup for the order question type.
+ *
+ * @package    qtype_order
+ * @copyright  2007 Adriane Boyd
+ * @author adrianeboyd@gmail.com
+ * @author rdebleu@eWallah.net
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
@@ -43,15 +45,14 @@ class backup_qtype_order_plugin extends backup_qtype_plugin {
         $plugin->add_child($pluginwrapper);
 
         // Now create the qtype own structures
-        $orderoptions = new backup_nested_element('orderoptions', array('id'), array(
-            'subquestions', 'horizontal','correctfeedback', 'correctfeedbackformat',
+        $orderoptions = new backup_nested_element('orderoptions', ['id'], [
+            'subquestions', 'horizontal', 'correctfeedback', 'correctfeedbackformat',
             'partiallycorrectfeedback', 'partiallycorrectfeedbackformat',
-            'incorrectfeedback', 'incorrectfeedbackformat', 'shownumcorrect'));
+            'incorrectfeedback', 'incorrectfeedbackformat', 'shownumcorrect']);
 
         $orders = new backup_nested_element('orders');
 
-        $order = new backup_nested_element('order', array('id'), array(
-            'code', 'questiontext', 'questiontextformat', 'answertext'));
+        $order = new backup_nested_element('order', ['id'], ['code', 'questiontext', 'questiontextformat', 'answertext']);
 
         // Now the own qtype tree
         $pluginwrapper->add_child($orderoptions);
@@ -59,8 +60,8 @@ class backup_qtype_order_plugin extends backup_qtype_plugin {
         $orders->add_child($order);
 
         // set source to populate the data
-        $orderoptions->set_source_table('question_order', array('question' => backup::VAR_PARENTID));
-        $order->set_source_table('question_order_sub', array('question' => backup::VAR_PARENTID));
+        $orderoptions->set_source_table('question_order', ['question' => backup::VAR_PARENTID]);
+        $order->set_source_table('question_order_sub', ['question' => backup::VAR_PARENTID]);
 
         // don't need to annotate ids nor files
 
@@ -74,11 +75,11 @@ class backup_qtype_order_plugin extends backup_qtype_plugin {
      * files to be processed both in backup and restore.
      */
     public static function get_qtype_fileareas() {
-        return array(
+        return [
             'correctfeedback' => 'question_order',
             'partiallycorrectfeedback' => 'question_order',
             'incorrectfeedback' => 'question_order',
             'subquestion'   => 'question_order_sub',
-            'subanswer'     => 'question_order_sub');
+            'subanswer'     => 'question_order_sub'];
     }
 }

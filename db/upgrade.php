@@ -23,6 +23,8 @@
  * @author rdebleu@eWallah.net
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+defined('MOODLE_INTERNAL') || die();
+
 function xmldb_qtype_order_upgrade($oldversion) {
     global $CFG, $DB, $QTYPES;
 
@@ -30,11 +32,11 @@ function xmldb_qtype_order_upgrade($oldversion) {
 
     if ($oldversion < 2011010400) {
 
-        // Define field questiontextformat to be added to question_order_sub
+        // Define field questiontextformat to be added to question_order_sub.
         $table = new xmldb_table('question_order_sub');
         $field = new xmldb_field('questiontextformat', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '0', 'questiontext');
 
-        // Conditionally launch add field questiontextformat
+        // Conditionally launch add field questiontextformat.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
@@ -46,7 +48,7 @@ function xmldb_qtype_order_upgrade($oldversion) {
         // Because this question type was updated later than the core types,
         // the available/relevant version dates make it hard to differentiate
         // early 2.0 installs from 1.9 updates, hence the extra check for
-        // the presence of oldquestiontextformat
+        // the presence of oldquestiontextformat.
 
         $table = new xmldb_table('question');
         $field = new xmldb_field('oldquestiontextformat');
@@ -66,23 +68,21 @@ function xmldb_qtype_order_upgrade($oldversion) {
             }
             $rs->close();
         }
-
-        // match savepoint reached
         upgrade_plugin_savepoint(true, 2011010400, 'qtype', 'order');
     }
 
     if ($oldversion < 2011011300) {
 
-        // Define field correctfeedback to be added to question_order
+        // Define field correctfeedback to be added to question_order.
         $table = new xmldb_table('question_order');
         $field = new xmldb_field('correctfeedback', XMLDB_TYPE_TEXT, 'small', null,
                 null, null, null, 'gradingmethod');
 
-        // Conditionally launch add field correctfeedback
+        // Conditionally launch add field correctfeedback.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
 
-            // Now fill it with '';
+            // Now fill it with ''.
             $DB->set_field('question_order', 'correctfeedback', '');
 
             $field = new xmldb_field('correctfeedback', XMLDB_TYPE_TEXT, 'small', null,
@@ -90,11 +90,11 @@ function xmldb_qtype_order_upgrade($oldversion) {
             $dbman->change_field_notnull($table, $field);
         }
 
-        // Define field correctfeedbackformat to be added to question_order
+        // Define field correctfeedbackformat to be added to question_order.
         $field = new xmldb_field('correctfeedbackformat', XMLDB_TYPE_INTEGER, '2', null,
                 XMLDB_NOTNULL, null, '0', 'correctfeedback');
 
-        // Conditionally launch add field correctfeedbackformat
+        // Conditionally launch add field correctfeedbackformat.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
@@ -102,11 +102,11 @@ function xmldb_qtype_order_upgrade($oldversion) {
         $field = new xmldb_field('partiallycorrectfeedback', XMLDB_TYPE_TEXT, 'small', null,
                 null, null, null, 'correctfeedbackformat');
 
-        // Conditionally launch add field partiallycorrectfeedback
+        // Conditionally launch add field partiallycorrectfeedback.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
 
-            // Now fill it with '';
+            // Now fill it with ''.
             $DB->set_field('question_order', 'partiallycorrectfeedback', '');
 
             // Now add the not null constraint.
@@ -115,24 +115,24 @@ function xmldb_qtype_order_upgrade($oldversion) {
             $dbman->change_field_notnull($table, $field);
         }
 
-        // Define field partiallycorrectfeedbackformat to be added to question_order
+        // Define field partiallycorrectfeedbackformat to be added to question_order.
         $field = new xmldb_field('partiallycorrectfeedbackformat', XMLDB_TYPE_INTEGER, '2', null,
                 XMLDB_NOTNULL, null, '0', 'partiallycorrectfeedback');
 
-        // Conditionally launch add field partiallycorrectfeedbackformat
+        // Conditionally launch add field partiallycorrectfeedbackformat.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
 
-        // Define field incorrectfeedback to be added to question_order
+        // Define field incorrectfeedback to be added to question_order.
         $field = new xmldb_field('incorrectfeedback', XMLDB_TYPE_TEXT, 'small', null,
                 null, null, null, 'partiallycorrectfeedbackformat');
 
-        // Conditionally launch add field incorrectfeedback
+        // Conditionally launch add field incorrectfeedback.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
 
-            // Now fill it with '';
+            // Now fill it with ''.
             $DB->set_field('question_order', 'incorrectfeedback', '');
 
             // Now add the not null constraint.
@@ -141,27 +141,24 @@ function xmldb_qtype_order_upgrade($oldversion) {
             $dbman->change_field_notnull($table, $field);
         }
 
-        // Define field incorrectfeedbackformat to be added to question_order
+        // Define field incorrectfeedbackformat to be added to question_order.
         $field = new xmldb_field('incorrectfeedbackformat', XMLDB_TYPE_INTEGER, '2', null,
                 XMLDB_NOTNULL, null, '0', 'incorrectfeedback');
 
-        // Conditionally launch add field incorrectfeedbackformat
+        // Conditionally launch add field incorrectfeedbackformat.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
 
-        // Define field shownumcorrect to be added to question_order
+        // Define field shownumcorrect to be added to question_order.
         $field = new xmldb_field('shownumcorrect', XMLDB_TYPE_INTEGER, '2', null,
                 XMLDB_NOTNULL, null, '0', 'incorrectfeedbackformat');
 
-        // Conditionally launch add field shownumcorrect
+        // Conditionally launch add field shownumcorrect.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
-
-        // match savepoint reached
         upgrade_plugin_savepoint(true, 2011080900, 'qtype', 'order');
     }
-    
     return true;
 }

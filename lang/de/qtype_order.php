@@ -32,4 +32,4 @@ $string['filloutthreeitems'] = 'Sie müssen mindestens drei Werte in der richtig
 $string['horizontal'] = 'Werte nebeneinander anzeigen';
 $string['itemno'] = 'Wert {$a}';
 $string['order'] = 'Anordnungsfrage';
-$string['ordersummary'] = 'Werte werden per Drag-and-Drop entweder senkrecht oder nebeneinander eingeordnet.'
+$string['ordersummary'] = 'Werte werden per Drag-and-Drop entweder senkrecht oder nebeneinander eingeordnet.';

@@ -27,7 +27,7 @@
 $string['pluginname'] = 'Ordonancement';
 $string['addmoreqblanks'] = '{no} emplacements supplémentaires vides';
 $string['defaultresponse'] = 'Je ne sais pas';
-$string['filloutthreeitems'] = 'Vous devez fournir au moins trois éléments dans l\'ordre correct.  Les éléments vides sont ignorés.'; 
+$string['filloutthreeitems'] = 'Vous devez fournir au moins trois éléments dans l\'ordre correct.  Les éléments vides sont ignorés.';
 $string['horizontal'] = 'Afficher les éléments horizontalement';
 $string['itemno'] = 'Elément {$a}';
 $string['notenoughquestions'] = 'Vous devez fournir au moins trois éléments.';
