@@ -24,7 +24,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Ordering';
+$string['pluginname'] = 'Order';
 $string['privacy:metadata'] = 'The ordering question type plugin does not store any personal data.';
 $string['addmoreqblanks'] = 'Add more items';
 $string['defaultresponse'] = 'I don\'t know';
@@ -32,7 +32,7 @@ $string['filloutthreeitems'] = 'You must provide at least three items in the cor
 $string['horizontal'] = 'Display items horizontally';
 $string['itemno'] = 'Item {$a}';
 $string['notenoughquestions'] = 'You must provide at least three items.';
-$string['order'] = 'Ordering';
+$string['order'] = 'Order';
 $string['order_help'] = 'This is a drag-and-drop question where items can be reordered either vertically or horizontally.';
 $string['order_link'] = 'question/type/order';
 $string['pluginnamesummary'] = 'A drag-and-drop question where items can be reordered either vertically or horizontally.';
