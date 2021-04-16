@@ -71,8 +71,7 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
             $initparams->ablockcontent = $this->construct_ablock_dragable($qa, $options);
             $initparams->readonly = $options->readonly;
 
-            global $PAGE;
-            $PAGE->requires->js_init_call('M.order.Init', [$initparams], false,
+            $this->page->requires->js_init_call('M.order.Init', [$initparams], false,
                 ['name' => 'order',
                  'fullpath' => '/question/type/order/order.js',
                  'requires' => ['yui2-yahoo', 'yui2-event', 'yui2-dom', 'yui2-dragdrop', 'yui2-animation']]);
