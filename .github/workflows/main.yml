@@ -39,6 +39,7 @@ jobs:
            echo "$(cd bin; pwd)" >> $GITHUB_PATH
            echo "$(cd vendor/bin; pwd)" >> $GITHUB_PATH
            sudo locale-gen en_AU.UTF-8
+           sudo systemctl start mysql.service
         working-directory: ci
 
       - name: install Moodle
