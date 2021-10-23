@@ -183,7 +183,7 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
     /**
      * Return the contents of this qtype to be processed by the links decoder
      */
-    static public function define_decode_contents() {
+    public static function define_decode_contents() {
         $contents = [];
         $contents[] = new restore_decode_content('question_order_sub', ['questiontext'], 'question_order_sub');
         return $contents;
