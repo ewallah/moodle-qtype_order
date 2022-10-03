@@ -268,6 +268,7 @@ class qtype_order extends question_type {
             $question->horizontal = $format->getpath( $data, ['#', 'horizontal', 0, '#'], 1 );
 
             // Get subquestions.
+            print_object($data);
             $subquestions = $data['#']['subquestion'];
             $question->subquestions = [];
             $question->subanswers = [];

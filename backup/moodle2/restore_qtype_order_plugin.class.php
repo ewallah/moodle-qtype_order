@@ -24,16 +24,20 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
- * restore plugin class that provides the necessary information
- * needed to restore one order qtype plugin
+ * Restoring order question type.
+ *
+ * @package    qtype_order
+ * @copyright  2007 Adriane Boyd
+ * @author adrianeboyd@gmail.com
+ * @author rdebleu@eWallah.net
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class restore_qtype_order_plugin extends restore_qtype_plugin {
 
     /**
      * Returns the paths to be handled by the plugin at question level
+     * @return array
      */
     protected function define_question_plugin_structure() {
 
@@ -51,6 +55,7 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
 
     /**
      * Process the qtype/orderoptions element.
+     * @param arrray $data
      */
     public function process_orderoptions($data) {
         global $DB;
@@ -85,6 +90,7 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
 
     /**
      * Process the qtype/orders/order element
+     * @param arrray $data
      */
     public function process_order($data) {
         global $DB;
@@ -126,8 +132,7 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
     }
 
     /**
-     * This method is executed once the whole restore_structure_step,
-     * more exactly ({@link restore_create_categories_and_questions})
+     * This method is executed once the whole restore_structure_step
      * has ended processing the whole xml structure. Its name is:
      * "after_execute_" + connectionpoint ("question")
      *
@@ -160,6 +165,8 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
      *
      * answer is one comma separated list of hypen separated pairs
      * containing question_order_sub->id and question_order_sub->code
+     * @param stdClass $state
+     * @return string
      */
     public function recode_state_answer($state) {
         $answer = $state->answer;
@@ -182,6 +189,7 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
 
     /**
      * Return the contents of this qtype to be processed by the links decoder
+     * @return array
      */
     public static function define_decode_contents() {
         $contents = [];
@@ -189,6 +197,13 @@ class restore_qtype_order_plugin extends restore_qtype_plugin {
         return $contents;
     }
 
+    /**
+     * Recode response.
+     * @param int $questionid
+     * @param int $sequencenumber
+     * @param array $response
+     * @return string the recoded order.
+     */
     public function recode_response($questionid, $sequencenumber, array $response) {
         if (array_key_exists('_choiceorder', $response)) {
             $response['_choiceorder'] = $this->recode_order($response['_choiceorder']);

@@ -24,10 +24,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
- * match editing form definition.
+ * Upgrade code for the essay question type.
+ * @param int $oldversion the version we are upgrading from.
  */
 class qtype_order_edit_form extends question_edit_form {
 

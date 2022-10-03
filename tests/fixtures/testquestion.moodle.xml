@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<!-- question: 97291  -->
+  <question type="order">
+    <name>
+      <text>Invoice processing</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Please put the actions undertaken for invoice processing by the Finance department in the correct order.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text></text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <horizontal>0</horizontal>
+    <correctfeedback format="html">
+      <text><![CDATA[<p>Your answer is correct.</p>]]></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+      <text><![CDATA[<p>Your answer is partially correct.</p>]]></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+      <text><![CDATA[<p>Your answer is incorrect.</p>]]></text>
+    </incorrectfeedback>
+    <shownumcorrect/>
+    <subquestion format="html">
+      <text><![CDATA[<p>Finance receives the invoice</p>]]></text>
+      <answer>
+        <text>1</text>
+      </answer>
+    </subquestion>
+    <subquestion format="html">
+      <text><![CDATA[<p>Finance compares the invoice against the POD.</p>]]></text>
+      <answer>
+        <text>2</text>
+      </answer>
+    </subquestion>
+    <subquestion format="html">
+      <text><![CDATA[<p>Finance pays the invoice</p>]]></text>
+      <answer>
+        <text>3</text>
+      </answer>
+    </subquestion>
+  </question>
+
+</quiz>

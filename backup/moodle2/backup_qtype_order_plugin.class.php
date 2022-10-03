@@ -23,7 +23,6 @@
  * @author rdebleu@eWallah.net
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Provides the information to backup order questions
@@ -32,6 +31,7 @@ class backup_qtype_order_plugin extends backup_qtype_plugin {
 
     /**
      * Returns the qtype information to attach to question element
+     * @return stdClass
      */
     protected function define_question_plugin_structure() {
 
@@ -70,8 +70,7 @@ class backup_qtype_order_plugin extends backup_qtype_plugin {
     /**
      * Returns one array with filearea => mappingname elements for the qtype
      *
-     * Used by {@link get_components_and_fileareas} to know about all the qtype
-     * files to be processed both in backup and restore.
+     * @return array
      */
     public static function get_qtype_fileareas() {
         return [
