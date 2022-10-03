@@ -47,7 +47,7 @@ class qtype_order_question extends qtype_match_question {
 
     public function get_num_parts_right(array $response) {
         $fieldname = $this->get_dontknow_field_name();
-        if (array_key_exists($fieldname, $response) and $response[$fieldname]) {
+        if (array_key_exists($fieldname, $response) && $response[$fieldname]) {
             return [0, count($this->stemorder)];
         }
         return parent::get_num_parts_right($response);

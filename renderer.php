@@ -39,7 +39,7 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
         $op = core_useragent::check_browser_version('Opera', 9.0);
         $sa = core_useragent::check_browser_version('Safari', 412);
         $ch = core_useragent::check_browser_version('Chrome', 6);
-        if ((!$ie && !$ff && !$op && !$sa && !$ch) or !empty($USER->screenreader)) {
+        if ((!$ie && !$ff && !$op && !$sa && !$ch) || !empty($USER->screenreader)) {
             return false;
         }
         return true;
@@ -141,7 +141,7 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
             $classes .= ' inline';
         }
         $fieldname = $question->get_dontknow_field_name();
-        if (array_key_exists($fieldname, $response) and $response[$fieldname]) {
+        if (array_key_exists($fieldname, $response) && $response[$fieldname]) {
             $classes .= ' deactivateddraglist';
         }
         $o .= html_writer::tag('div', '', ['class' => 'clearer']);
@@ -151,7 +151,7 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
                 'name'      => $qa->get_qt_field_name($fieldname),
                 'type'      => 'checkbox',
                 'onClick'   => "M.order.OnClickDontKnow($question->id)"];
-        if (array_key_exists($fieldname, $response) and $response[$fieldname]) {
+        if (array_key_exists($fieldname, $response) && $response[$fieldname]) {
             $attributes['checked'] = 'on';
         }
         $o .= html_writer::empty_tag('input', $attributes);
