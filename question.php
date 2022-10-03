@@ -19,8 +19,8 @@
  *
  * @package    qtype_order
  * @copyright  2007 Adriane Boyd
- * @author adrianeboyd@gmail.com
- * @author rdebleu@eWallah.net
+ * @author     adrianeboyd@gmail.com
+ * @author     rdebleu@eWallah.net
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -32,8 +32,8 @@ require_once($CFG->dirroot . '/question/type/match/question.php');
  *
  * @package    qtype_order
  * @copyright  2007 Adriane Boyd
- * @author adrianeboyd@gmail.com
- * @author rdebleu@eWallah.net
+ * @author     adrianeboyd@gmail.com
+ * @author     rdebleu@eWallah.net
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class qtype_order_question extends qtype_match_question {

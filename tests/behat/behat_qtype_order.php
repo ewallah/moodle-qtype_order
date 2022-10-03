@@ -41,7 +41,7 @@ class behat_qtype_order extends behat_base {
      * @return string the xpath expression.
      */
     protected function item_xpath_by_lable($label) {
-        return '//li[@class = "sortableitem" and contains(normalize-space(.), "' . $this->escape($label) . '")]';
+        return '//li[@contains(normalize-space(.), "' . $this->escape($label) . '")]';
     }
 
     /**
@@ -50,7 +50,7 @@ class behat_qtype_order extends behat_base {
      * @return string the xpath expression.
      */
     protected function item_xpath_by_position($position) {
-        return '//li[@class = "sortableitem"][' . $position . ']';
+        return '//li[' . $position . ']';
     }
 
     /**

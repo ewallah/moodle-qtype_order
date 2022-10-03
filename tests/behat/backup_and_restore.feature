@@ -34,12 +34,12 @@ Feature: Test duplicating a quiz containing a order question
       | Question name                      | Moodle |
       | Question text                      | Put these words in order. |
       | General feedback                   | The correct answer is "Modular Object Oriented Dynamic Learning Environment". |
-      | id_answer_0                        | Modular                                                                       |
-      | id_answer_1                        | Object                                                                        |
-      | id_answer_2                        | Oriented                                                                      |
-      | id_answer_3                        | Dynamic                                                                       |
-      | id_answer_4                        | Learning                                                                      |
-      | id_answer_5                        | Environment                                                                   |
+      | id_subquestions_0                  | Modular                                                                       |
+      | id_subquestions_1                  | Object                                                                        |
+      | id_subquestions_2                  | Oriented                                                                      |
+      | id_subquestions_3                  | Dynamic                                                                       |
+      | id_subquestions_4                  | Learning                                                                      |
+      | id_subquestions_5                  | Environment                                                                   |
       | For any correct response           | Well done!                                                                    |
       | For any partially correct response | Parts, but only parts, of your response are correct.                          |
       | For any incorrect response         | That is not right at all.                                                     |

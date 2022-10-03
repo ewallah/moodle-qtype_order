@@ -36,8 +36,9 @@ require_once($CFG->dirroot . '/question/type/order/question.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class qtype_order_test_helper extends question_test_helper {
+
     public function get_test_questions() {
-        return array('moodle');
+        return ['moodle'];
     }
 
     /**
@@ -55,7 +56,7 @@ class qtype_order_test_helper extends question_test_helper {
         $q->questiontext = 'Put these words in order';
         $q->generalfeedback = 'The correct answer is "Modular Object Oriented Dynamic Learning Environment".';
         test_question_maker::set_standard_combined_feedback_fields($q);
-        $q->answers = [
+        $q->subquestions = [
             13 => $this->make_answer(13, 'Modular', FORMAT_HTML, 1, true),
             14 => $this->make_answer(14, 'Object', FORMAT_HTML, 2, true),
             15 => $this->make_answer(15, 'Oriented', FORMAT_HTML, 3, true),
@@ -64,12 +65,12 @@ class qtype_order_test_helper extends question_test_helper {
             18 => $this->make_answer(18, 'Environment', FORMAT_HTML, 6, true),
         ];
         $q->options = new stdClass();
-        //$q->options->layouttype = qtype_order_question::LAYOUT_HORIZONTAL;
-        //$q->options->selecttype = qtype_order_question::SELECT_ALL;
+        $q->options->layouttype = 0;
+        $q->options->selecttype = 0;
         $q->options->selectcount = 0;
-        //$q->options->gradingtype = qtype_order_question::GRADING_RELATIVE_ALL_PREVIOUS_AND_NEXT;
+        $q->options->gradingtype = 1;
         $q->options->showgrading = true;
-        //$q->options->numberingstyle = qtype_order_question::NUMBERING_STYLE_DEFAULT;
+        $q->options->numberingstyle = 'none';
         return $q;
     }
 
@@ -96,14 +97,9 @@ class qtype_order_test_helper extends question_test_helper {
         $answer->feedbackformat = FORMAT_MOODLE;
 
         if ($addmd5) {
-            if (isset($CFG->passwordsaltmain)) {
-                $salt = $CFG->passwordsaltmain;
-            } else {
-                $salt = '';
-            }
+            $salt = (isset($CFG->passwordsaltmain)) ? $CFG->passwordsaltmain : '';
             $answer->md5key = 'order_item_' . md5($salt . $answer->answer);
         }
-
         return $answer;
     }
 
@@ -124,15 +120,15 @@ class qtype_order_test_helper extends question_test_helper {
             'format' => FORMAT_HTML
         ];
 
-        //$form->layouttype = qtype_order_question::LAYOUT_HORIZONTAL;
-        //$form->selecttype = qtype_order_question::SELECT_ALL;
+        $form->layouttype = 1;
+        $form->selecttype = 0;
         $form->selectcount = 0;
-        //$form->gradingtype = qtype_order_question::GRADING_RELATIVE_ALL_PREVIOUS_AND_NEXT;
+        $form->gradingtype = 0;
         $form->showgrading = true;
-        //$form->numberingstyle = qtype_order_question::NUMBERING_STYLE_DEFAULT;
+        $form->numberingstyle = 'none';
 
         $form->countanswers = 6;
-        $form->answer = [
+        $form->subquestions = [
             ['text' => 'Modular', 'format' => FORMAT_HTML],
             ['text' => 'Object', 'format' => FORMAT_HTML],
             ['text' => 'Oriented', 'format' => FORMAT_HTML],
@@ -169,14 +165,14 @@ class qtype_order_test_helper extends question_test_helper {
         $questiondata->options = new stdClass();
         test_question_maker::set_standard_combined_feedback_fields($questiondata->options);
         unset($questiondata->options->shownumcorrect);
-        //$questiondata->options->layouttype = qtype_order_question::LAYOUT_HORIZONTAL;
-        //$questiondata->options->selecttype = qtype_order_question::SELECT_ALL;
+        $questiondata->options->layouttype = 0;
+        $questiondata->options->selecttype = 0;
         $questiondata->options->selectcount = 0;
-        //$questiondata->options->gradingtype = qtype_order_question::GRADING_RELATIVE_ALL_PREVIOUS_AND_NEXT;
+        $questiondata->options->gradingtype = 0;
         $questiondata->options->showgrading = true;
-        //$questiondata->options->numberingstyle = qtype_order_question::NUMBERING_STYLE_DEFAULT;
+        $questiondata->options->numberingstyle = 'none';
 
-        $questiondata->options->answers = [
+        $questiondata->options->subquestions = [
             13 => $this->make_answer(13, 'Modular', FORMAT_HTML, 1),
             14 => $this->make_answer(14, 'Object', FORMAT_HTML, 2),
             15 => $this->make_answer(15, 'Oriented', FORMAT_HTML, 3),

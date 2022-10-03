@@ -19,8 +19,8 @@
  *
  * @package    qtype_order
  * @copyright  2007 Adriane Boyd
- * @author adrianeboyd@gmail.com
- * @author rdebleu@eWallah.net
+ * @author     adrianeboyd@gmail.com
+ * @author     rdebleu@eWallah.net
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -35,8 +35,8 @@ require_once($CFG->dirroot . '/question/engine/lib.php');
  *
  * @package    qtype_order
  * @copyright  2007 Adriane Boyd
- * @author adrianeboyd@gmail.com
- * @author rdebleu@eWallah.net
+ * @author     adrianeboyd@gmail.com
+ * @author     rdebleu@eWallah.net
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class qtype_order extends question_type {
@@ -111,7 +111,7 @@ class qtype_order extends question_type {
         }
 
         $options->subquestions = implode(',', $subquestions);
-        $options->horizontal = $question->horizontal;
+        $options->horizontal = 0;
         $options = $this->save_combined_feedback_helper($options, $question, $context, true);
         $DB->update_record('question_order', $options);
 
@@ -133,7 +133,7 @@ class qtype_order extends question_type {
         parent::initialise_question_instance($question, $questiondata);
 
         $question->shufflestems = true;
-        $question->horizontal = $questiondata->options->horizontal;
+        $question->horizontal = 0;
         $this->initialise_combined_feedback($question, $questiondata, true);
 
         $question->stems = [];
@@ -232,7 +232,7 @@ class qtype_order extends question_type {
         $expout = '';
         $fs = get_file_storage();
         $contextid = $question->contextid;
-        $expout .= "<horizontal>" . $question->options->horizontal . "</horizontal>\n";
+        $expout .= "<horizontal>0</horizontal>\n";
         $expout .= $format->write_combined_feedback($question->options, $question->id, $question->contextid);
         foreach ($question->options->subquestions as $subquestion) {
             $files = $fs->get_area_files($contextid, 'qtype_order', 'subquestion', $subquestion->id);
@@ -256,7 +256,7 @@ class qtype_order extends question_type {
      * @param extra mixed any additional format specific data that may be passed by the format (see format code for info)
      * @return object question object suitable for save_options() call or false if cannot handle
      **/
-    public function import_from_xml($data, $question, qformat_xml $format, $extra=null) {
+    public function import_from_xml($data, $question, qformat_xml $format, $extra = null) {
         // Check question is for us.
         $qtype = $data['@']['type'];
         if ($qtype == 'order') {
@@ -265,10 +265,9 @@ class qtype_order extends question_type {
             // Header parts particular to matching.
             $question->qtype = $qtype;
             $question->shuffleanswers = 1;
-            $question->horizontal = $format->getpath( $data, ['#', 'horizontal', 0, '#'], 1 );
+            $question->horizontal = 0;
 
             // Get subquestions.
-            print_object($data);
             $subquestions = $data['#']['subquestion'];
             $question->subquestions = [];
             $question->subanswers = [];
@@ -295,8 +294,7 @@ class qtype_order extends question_type {
             $format->import_combined_feedback($question, $data, true);
             $format->import_hints($question, $data, true);
             return $question;
-        } else {
-            return false;
         }
+        return false;
     }
 }

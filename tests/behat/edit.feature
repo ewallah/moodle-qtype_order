@@ -40,10 +40,6 @@ Feature: Test editing an order question
   Scenario: Editing an order question and making sure the form does not allow duplication of draggables
     When I choose "Edit question" action for "order for editing" in the question bank
     And I set the following fields to these values:
-      | Draggable item 4 | Object |
-    And I press "id_submitbutton"
-    Then  I should see "Duplication of draggable items is not allowed. The string \"Object\" is already used in Draggable item 2."
-    Given I set the following fields to these values:
-      | Draggable item 4 | Dynamic |
+      | id_subquestions_0 | Object |
     And I press "id_submitbutton"
     Then I should see "order for editing"
