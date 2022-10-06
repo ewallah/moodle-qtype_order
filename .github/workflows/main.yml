@@ -36,9 +36,18 @@ jobs:
 
     steps:
       - name: checkout plugin
+        if: ${{ matrix.moodle-branch == 'MOODLE_311_STABLE'}}
         uses: actions/checkout@v2
         with:
           path: this-plugin
+          branch: master
+
+      - name: checkout plugin
+        if: ${{ matrix.moodle-branch == 'MOODLE_400_STABLE'}}
+        uses: actions/checkout@v2
+        with:
+          path: this-plugin
+          branch: main
 
       - name: setup PHP
         uses: shivammathur/setup-php@v2

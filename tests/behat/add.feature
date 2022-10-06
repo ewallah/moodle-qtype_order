@@ -6,21 +6,19 @@ Feature: Test creating an order question
 
   Background:
     Given the following "users" exist:
-      | username | firstname | lastname | email               |
-      | teacher1 | T1        | Teacher1 | teacher1@moodle.com |
+      | username |
+      | teacher  |
     And the following "courses" exist:
       | fullname | shortname | category |
       | Course 1 | C1        | 0        |
     And the following "course enrolments" exist:
-      | user     | course | role           |
-      | teacher1 | C1     | editingteacher |
-    And I log in as "teacher1"
-    And I am on "Course 1" course homepage
-    And I navigate to "Question bank" in current page administration
+      | user    | course | role           |
+      | teacher | C1     | editingteacher |
 
   @javascript
-  Scenario: Create an order question with 6 draggable items
-    When I add a "order" question filling the form with:
+  Scenario: Create an order question with 3 draggable items
+    When I am on the "Course 1" "core_question > course question bank" page logged in as teacher
+    And I add a "Order" question filling the form with:
       | Question name                      | order-001                        |
       | Question text                      | Put the words in correct order.  |
       | General feedback                   | One two three four five six      |
