@@ -37,6 +37,11 @@ require_once($CFG->dirroot . '/question/type/order/question.php');
  */
 class qtype_order_test_helper extends question_test_helper {
 
+    /**
+     * Collect test questions.
+     *
+     * @return array
+     */
     public function get_test_questions() {
         return ['moodle'];
     }

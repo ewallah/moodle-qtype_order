@@ -30,6 +30,17 @@
  */
 class qtype_order_edit_form extends question_edit_form {
 
+
+    /**
+     * Get the list of form elements to repeat, one for each answer.
+     *
+     * @param object $mform the form being built.
+     * @param string $label the label to use for each option.
+     * @param array $gradeoptions the possible grades for each answer.
+     * @param array $repeatedoptions reference to array of repeated options to fill
+     * @param array $answersoption reference to return the name of $question->options field holding an array of answers
+     * @return array of form fields.
+     */
     public function get_per_answer_fields($mform, $label, $gradeoptions, &$repeatedoptions, &$answersoption) {
         $repeated = [];
         $repeated[] = $mform->createElement('header', 'answerhdr', $label);
@@ -62,6 +73,12 @@ class qtype_order_edit_form extends question_edit_form {
         $this->add_interactive_settings(true, true);
     }
 
+
+    /**
+     * Perform an preprocessing needed on the data passed to set_data() before it is used to initialise the form.
+     * @param object $question the data being passed to the form.
+     * @return object $question the modified data.
+     */
     public function data_preprocessing($question) {
         $question = parent::data_preprocessing($question);
         $question = $this->data_preprocessing_combined_feedback($question, true);
@@ -90,6 +107,13 @@ class qtype_order_edit_form extends question_edit_form {
         return $question;
     }
 
+    /**
+     * Validation.
+     *
+     * @param array $data
+     * @param array $files
+     * @return array the errors that were found
+     */
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);
         $answers = $data['subanswers'];
@@ -123,6 +147,11 @@ class qtype_order_edit_form extends question_edit_form {
         return $errors;
     }
 
+    /**
+     * Get type.
+     *
+     * @return string.
+     */
     public function qtype() {
         return 'order';
     }

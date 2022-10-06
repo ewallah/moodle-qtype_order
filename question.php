@@ -38,6 +38,13 @@ require_once($CFG->dirroot . '/question/type/match/question.php');
  */
 class qtype_order_question extends qtype_match_question {
 
+
+    /**
+     * Start a new attempt at this question, storing any information that will be needed later in the step.
+     *
+     * @param question_attempt_step $step The first step of the question_attempt being started. Can be used to store state.
+     * @param int $variant which variant of this question to start. Will be between 1 and get_num_variants inclusive.
+     */
     public function start_attempt(question_attempt_step $step, $variant) {
         parent::start_attempt($step, $variant);
         $choiceorder = array_keys($this->choices);
@@ -45,6 +52,11 @@ class qtype_order_question extends qtype_match_question {
         $this->set_choiceorder($choiceorder);
     }
 
+    /**
+     * Return the number of subparts of this response that are right.
+     * @param array $response a response
+     * @return array with two elements, the number of correct subparts, and the total number of subparts.
+     */
     public function get_num_parts_right(array $response) {
         $fieldname = $this->get_dontknow_field_name();
         if (array_key_exists($fieldname, $response) && $response[$fieldname]) {
@@ -53,20 +65,46 @@ class qtype_order_question extends qtype_match_question {
         return parent::get_num_parts_right($response);
     }
 
+    /**
+     * Get expected data
+     *
+     * @return array
+     */
     public function get_expected_data() {
         $vars = parent::get_expected_data();
         $vars[$this->get_dontknow_field_name()] = PARAM_ALPHA;
         return $vars;
     }
 
+    /**
+     * Get field name
+     *
+     * @param string $key
+     * @return string
+     */
     public function get_field_name($key) {
         return $this->field($key);
     }
 
+    /**
+     * Get dont know field name
+     *
+     * @return string
+     */
     public function get_dontknow_field_name() {
         return 'dontknow'.$this->id;
     }
 
+    /**
+     * Checks whether the users is allow to be served a particular file.
+     * @param question_attempt $qa the question attempt being displayed.
+     * @param question_display_options $options the options that control display of the question.
+     * @param string $component the name of the component we are serving files for.
+     * @param string $filearea the name of the file area.
+     * @param array $args the remaining bits of the file path.
+     * @param bool $forcedownload whether the user must be forced to download the file.
+     * @return bool true if the user can access this file.
+     */
     public function check_file_access($qa, $options, $component, $filearea, $args, $forcedownload) {
         if ($component == 'qtype_order' && $filearea == 'subquestion') {
             $subqid = reset($args); // Itemid is sub question id.

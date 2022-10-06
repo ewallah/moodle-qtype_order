@@ -19,18 +19,27 @@
  *
  * @package    qtype_order
  * @copyright  2007 Adriane Boyd
- * @author adrianeboyd@gmail.com
- * @author rdebleu@eWallah.net
+ * @author     adrianeboyd@gmail.com
+ * @author     rdebleu@eWallah.net
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
  * Generates the output for order questions.
  *
+ * @package    qtype_order
+ * @copyright  2007 Adriane Boyd
+ * @author     adrianeboyd@gmail.com
+ * @author     rdebleu@eWallah.net
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
 
+    /**
+     * Can use drag and drop.
+     *
+     * @return bool
+     */
     protected function can_use_drag_and_drop() {
         global $USER;
 
@@ -45,6 +54,13 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
         return true;
     }
 
+    /**
+     * Formulation and controls
+     *
+     * @param question_attempt $qa question attempt.
+`    * @param question_display_options $options available options.
+     * @return string HTML fragment.
+     */
     public function formulation_and_controls(question_attempt $qa, question_display_options $options) {
         $question = $qa->get_question();
         $response = $qa->get_last_qt_data();
@@ -77,6 +93,14 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
         return $o;
     }
 
+
+    /**
+     * Construct a block select
+     *
+     * @param question_attempt $qa
+`    * @param question_display_options $options
+     * @return string HTML fragment.
+     */
     private function construct_ablock_select(question_attempt $qa, question_display_options $options) {
 
         $question = $qa->get_question();
@@ -114,6 +138,14 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
         return $o;
     }
 
+
+    /**
+     * Construct a block draggable.
+     *
+     * @param question_attempt $qa
+`    * @param question_display_options $options
+     * @return string HTML fragment.
+     */
     private function construct_ablock_dragable(question_attempt $qa, question_display_options $options) {
         $question = $qa->get_question();
         $response = $qa->get_last_qt_data();
@@ -169,6 +201,14 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
         return $o;
     }
 
+    /**
+     * Collect selected.
+     *
+     * @param stdClass $question
+`    * @param stdClass $response
+     * @param string $key
+     * @return string name
+     */
     private function get_selected($question, $response, $key) {
         if (array_key_exists($question->get_field_name($key), $response)) {
             return $response[$question->get_field_name($key)];
@@ -177,6 +217,13 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
         }
     }
 
+    /**
+     * Feedback class image.
+     * @param question_attempt $qa
+`    * @param question_display_options $options
+     * @param string $key
+     * @return stdClass
+     */
     private function get_feedback_class_image(question_attempt $qa, question_display_options $options, $key) {
         $question = $qa->get_question();
         $response = $qa->get_last_qt_data();
@@ -194,6 +241,12 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
         return $ret;
     }
 
+    /**
+     * Get selected stemorder.
+     *
+     * @param object $qa
+     * @return array
+     */
     private function get_selected_stemorder($qa) {
         $question = $qa->get_question();
         $response = $qa->get_last_qt_data();
@@ -209,10 +262,22 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
         return $selectedstemorder;
     }
 
+    /**
+     * Specific feedback.
+     *
+     * @param question_attempt $qa
+     * @return string
+     */
     public function specific_feedback(question_attempt $qa) {
         return $this->combined_feedback($qa);
     }
 
+    /**
+     * Format choices.
+     *
+     * @param object $question
+     * @return array
+     */
     public function format_choices($question) {
         $choices = [];
         foreach ($question->get_choice_order() as $key => $choiceid) {
@@ -221,6 +286,12 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
         return $choices;
     }
 
+    /**
+     * Correct response.
+     *
+     * @param question_attempt $qa
+     * @return string
+     */
     public function correct_response(question_attempt $qa) {
         if ($qa->get_state()->is_correct()) {
             return '';

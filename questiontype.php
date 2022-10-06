@@ -41,6 +41,13 @@ require_once($CFG->dirroot . '/question/engine/lib.php');
  */
 class qtype_order extends question_type {
 
+
+    /**
+     * Loads the question type specific options for the question.
+     *
+     * @param object $question The question object for the question.
+     * @return bool            Indicates success or failure.
+     */
     public function get_question_options($question) {
         global $DB;
         parent::get_question_options($question);
@@ -49,6 +56,13 @@ class qtype_order extends question_type {
         return true;
     }
 
+
+    /**
+     * Saves question-type specific options
+     *
+     * @param object $question  This holds the information from the editing form, it is not a standard question object.
+     * @return object $result->error or $result->notice
+     */
     public function save_question_options($question) {
         global $DB;
         $context = $question->context;
@@ -129,6 +143,13 @@ class qtype_order extends question_type {
         return true;
     }
 
+
+    /**
+     * Initialise the common question_definition fields.
+     *
+     * @param question_definition $question the question_definition we are creating.
+     * @param object $questiondata the question data loaded from the database.
+     */
     protected function initialise_question_instance(question_definition $question, $questiondata) {
         parent::initialise_question_instance($question, $questiondata);
 
@@ -156,10 +177,23 @@ class qtype_order extends question_type {
         }
     }
 
+
+    /**
+     * Create a question_hint, or an appropriate subclass for this question, from a row loaded from the database.
+     *
+     * @param object $hint the DB row from the question hints table.
+     * @return question_hint
+     */
     protected function make_hint($hint) {
         return question_hint_with_parts::load_from_record($hint);
     }
 
+
+    /**
+     * Deletes the question-type specific data when a question is deleted.
+     * @param int $questionid the question being deleted.
+     * @param int $contextid the context this quesiotn belongs to.
+     */
     public function delete_question($questionid, $contextid) {
         global $DB;
         $DB->delete_records('question_order', ['question' => $questionid]);
@@ -167,11 +201,24 @@ class qtype_order extends question_type {
         parent::delete_question($questionid, $contextid);
     }
 
+    /**
+     * Calculate the score a monkey would get on a question by clicking randomly.
+     *
+     * @param stdClass $questiondata data defining a question, as returned by question_bank::load_question_data().
+     * @return number|null either a fraction estimating what the student would score by guessing, or null.
+     */
     public function get_random_guess_score($questiondata) {
         $q = $this->make_question($questiondata);
         return 1 / count($q->choices);
     }
 
+
+    /**
+     * This method should return all the possible types of response that are recognised for this question.
+     *
+     * @param object $questiondata the question definition data.
+     * @return array keys are subquestionid, values are arrays of possibleresponses to that subquestion.
+     */
     public function get_possible_responses($questiondata) {
         $subqs = [];
 
@@ -192,6 +239,12 @@ class qtype_order extends question_type {
         return $subqs;
     }
 
+    /**
+     * Move all the files belonging to this question from one context to another.
+     * @param int $questionid the question being moved.
+     * @param int $oldcontextid the context it is moving from.
+     * @param int $newcontextid the context it is moving to.
+     */
     public function move_files($questionid, $oldcontextid, $newcontextid) {
         global $DB;
         $fs = get_file_storage();
@@ -204,6 +257,12 @@ class qtype_order extends question_type {
         }
     }
 
+
+    /**
+     * Delete all the files belonging to this question.
+     * @param int $questionid the question being deleted.
+     * @param int $contextid the context the question is in.
+     */
     protected function delete_files($questionid, $contextid) {
         global $DB;
         $fs = get_file_storage();
@@ -223,12 +282,12 @@ class qtype_order extends question_type {
     /**
      * Provide export functionality for xml format.
      *
-     * @param question object the question object
-     * @param format object the format object so that helper methods can be used
-     * @param extra mixed any additional format specific data that may be passed by the format (see format code for info)
+     * @param object $question the question object
+     * @param qformat_xml $format the format object so that helper methods can be used
+     * @param array $extra mixed any additional format specific data that may be passed by the format (see format code for info
      * @return string the data to append to the output buffer or false if error
      **/
-    public function export_to_xml($question, qformat_xml $format, $extra=null) {
+    public function export_to_xml($question, qformat_xml $format, $extra = null) {
         $expout = '';
         $fs = get_file_storage();
         $contextid = $question->contextid;
@@ -250,10 +309,11 @@ class qtype_order extends question_type {
 
     /**
      * Provide import functionality for xml format
-     * @param data mixed the segment of data containing the question
-     * @param question object question object processed (so far) by standard import code
-     * @param format object the format object so that helper methods can be used (in particular error() )
-     * @param extra mixed any additional format specific data that may be passed by the format (see format code for info)
+     *
+     * @param object $data the segment of data containing the question
+     * @param object $question object processed (so far) by standard import code
+     * @param qformat_xml $format the format object so that helper methods can be used (in particular error() )
+     * @param object $extra any additional format specific data that may be passed by the format (see format code for info)
      * @return object question object suitable for save_options() call or false if cannot handle
      **/
     public function import_from_xml($data, $question, qformat_xml $format, $extra = null) {
