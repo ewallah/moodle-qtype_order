@@ -23,6 +23,7 @@
  * @author     rdebleu@eWallah.net
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+defined('MOODLE_INTERNAL') || die();
 
 /**
  * Generates the output for order questions.
@@ -55,10 +56,13 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
     }
 
     /**
-     * Formulation and controls
+     * Generate the display of the formulation part of the question. This is the
+     * area that contains the question text, and the controls for students to
+     * input their answers. Some question types also embed bits of feedback, for
+     * example ticks and crosses, in this area.
      *
-     * @param question_attempt $qa question attempt.
-`    * @param question_display_options $options available options.
+     * @param question_attempt $qa the question attempt to display.
+     * @param question_display_options $options controls what should and should not be displayed.
      * @return string HTML fragment.
      */
     public function formulation_and_controls(question_attempt $qa, question_display_options $options) {
@@ -95,10 +99,10 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
 
 
     /**
-     * Construct a block select
+     * Construct a block select.
      *
-     * @param question_attempt $qa
-`    * @param question_display_options $options
+     * @param question_attempt $qa the question attempt to display.
+     * @param question_display_options $options controls what should and should not be displayed.
      * @return string HTML fragment.
      */
     private function construct_ablock_select(question_attempt $qa, question_display_options $options) {
@@ -142,8 +146,8 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
     /**
      * Construct a block draggable.
      *
-     * @param question_attempt $qa
-`    * @param question_display_options $options
+     * @param question_attempt $qa the question attempt to display.
+     * @param question_display_options $options controls what should and should not be displayed.
      * @return string HTML fragment.
      */
     private function construct_ablock_dragable(question_attempt $qa, question_display_options $options) {
@@ -202,12 +206,12 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
     }
 
     /**
-     * Collect selected.
+     * Collect selected response.
      *
-     * @param stdClass $question
-`    * @param stdClass $response
+     * @param object $question
+     * @param object $response
      * @param string $key
-     * @return string name
+     * @return int|string name
      */
     private function get_selected($question, $response, $key) {
         if (array_key_exists($question->get_field_name($key), $response)) {
@@ -219,10 +223,10 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
 
     /**
      * Feedback class image.
-     * @param question_attempt $qa
-`    * @param question_display_options $options
+     * @param question_attempt $qa the question attempt to display.
+     * @param question_display_options $options controls what should and should not be displayed.
      * @param string $key
-     * @return stdClass
+     * @return object
      */
     private function get_feedback_class_image(question_attempt $qa, question_display_options $options, $key) {
         $question = $qa->get_question();
