@@ -26,19 +26,7 @@ Feature: Preview an order question
     When I am on the "order-001" "core_question > preview" page logged in as teacher1
     And I expand all fieldsets
     And I set the field "How questions behave" to "Immediate feedback"
-    And I press "Start again with these options"
-    # The test was unreliable unless if an item randomly started in the right place.
-    # So we first moved each item to the last place, before putting it into the right place.
-    #And I drag "Modular" to space "6" in the order question
-    #And I drag "Modular" to space "1" in the order question
-    #And I drag "Object" to space "6" in the order question
-    #And I drag "Object" to space "2" in the order question
-    #And I drag "Oriented" to space "6" in the order question
-    #And I drag "Oriented" to space "3" in the order question
-    #And I drag "Dynamic" to space "6" in the order question
-    #And I drag "Dynamic" to space "4" in the order question
-    #And I drag "Learning" to space "6" in the order question
-    #And I drag "Learning" to space "5" in the order question
+    And I press "Save preview options and start again"
     And I press "Submit and finish"
     And I should see "The correct answer is"
     And I switch to the main window

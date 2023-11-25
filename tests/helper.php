@@ -122,7 +122,7 @@ class qtype_order_test_helper extends question_test_helper {
         $form->defaultmark = 1;
         $form->generalfeedback = [
             'text' => 'The correct answer is "Modular Object Oriented Dynamic Learning Environment".',
-            'format' => FORMAT_HTML
+            'format' => FORMAT_HTML,
         ];
 
         $form->layouttype = 1;

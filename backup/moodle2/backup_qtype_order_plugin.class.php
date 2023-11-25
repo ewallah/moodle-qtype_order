@@ -48,7 +48,7 @@ class backup_qtype_order_plugin extends backup_qtype_plugin {
         $orderoptions = new backup_nested_element('orderoptions', ['id'], [
             'subquestions', 'horizontal', 'correctfeedback', 'correctfeedbackformat',
             'partiallycorrectfeedback', 'partiallycorrectfeedbackformat',
-            'incorrectfeedback', 'incorrectfeedbackformat', 'shownumcorrect']);
+            'incorrectfeedback', 'incorrectfeedbackformat', 'shownumcorrect', ]);
 
         $orders = new backup_nested_element('orders');
 
@@ -78,6 +78,6 @@ class backup_qtype_order_plugin extends backup_qtype_plugin {
             'partiallycorrectfeedback' => 'question_order',
             'incorrectfeedback' => 'question_order',
             'subquestion'   => 'question_order_sub',
-            'subanswer'     => 'question_order_sub'];
+            'subanswer'     => 'question_order_sub', ];
     }
 }

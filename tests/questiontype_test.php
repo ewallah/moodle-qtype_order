@@ -57,7 +57,7 @@ class questiontype_test extends \advanced_testcase {
      * Test name.
      * @covers \qtype_order
      */
-    public function test_name() {
+    public function test_name(): void {
         $this->assertEquals($this->qtype->name(), 'order');
     }
 
@@ -65,7 +65,7 @@ class questiontype_test extends \advanced_testcase {
      * Can analyse responses.
      * @covers \qtype_order
      */
-    public function test_can_analyse_responses() {
+    public function test_can_analyse_responses(): void {
         $this->assertTrue($this->qtype->can_analyse_responses());
     }
 
@@ -74,7 +74,7 @@ class questiontype_test extends \advanced_testcase {
      * @covers \qtype_order
      * @covers \qtype_order_edit_form
      */
-    public function test_question_saving() {
+    public function test_question_saving(): void {
         $this->resetAfterTest();
         $this->setAdminUser();
 

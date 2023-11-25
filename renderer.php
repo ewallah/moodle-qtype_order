@@ -23,7 +23,6 @@
  * @author     rdebleu@eWallah.net
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Generates the output for order questions.
@@ -92,7 +91,7 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
             $this->page->requires->js_init_call('M.order.Init', [$initparams], false,
                 ['name' => 'order',
                  'fullpath' => '/question/type/order/order.js',
-                 'requires' => ['yui2-yahoo', 'yui2-event', 'yui2-dom', 'yui2-dragdrop', 'yui2-animation']]);
+                 'requires' => ['yui2-yahoo', 'yui2-event', 'yui2-dom', 'yui2-dragdrop', 'yui2-animation'], ]);
         }
         return $o;
     }
@@ -159,7 +158,7 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
         foreach ($selectedstemorder as $key => $stemid) {
             $stemorderkey = array_search($stemid, $stemorder);
             $attributes = ['id' => 'li_'.$question->id.'_'.$stemorderkey,
-                           'name' => $qa->get_qt_field_name($question->get_field_name($stemorderkey))];
+                           'name' => $qa->get_qt_field_name($question->get_field_name($stemorderkey)), ];
             $feedback = $this->get_feedback_class_image($qa, $options, $stemorderkey);
             if ($feedback->class) {
                 $attributes['class'] = $feedback->class;
@@ -186,7 +185,7 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
                 'id'        => 'ch_'.$question->id,
                 'name'      => $qa->get_qt_field_name($fieldname),
                 'type'      => 'checkbox',
-                'onClick'   => "M.order.OnClickDontKnow($question->id)"];
+                'onClick'   => "M.order.OnClickDontKnow($question->id)", ];
         if (array_key_exists($fieldname, $response) && $response[$fieldname]) {
             $attributes['checked'] = 'on';
         }
@@ -199,7 +198,7 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
                     'type'  => 'hidden',
                     'id'    => $qa->get_qt_field_name($question->get_field_name($stemorderkey)),
                     'name'  => $qa->get_qt_field_name($question->get_field_name($stemorderkey)),
-                    'value' => $key + 1];
+                    'value' => $key + 1, ];
             $o .= html_writer::empty_tag('input', $attributes);
         }
         return $o;
@@ -305,7 +304,8 @@ class qtype_order_renderer extends qtype_with_combined_feedback_renderer {
         if (count($choices)) {
             $table = new html_table();
             $table->attributes['class'] = 'generaltable correctanswertable';
-            foreach ($choices as $key => $subqid) {
+            $subqids = array_values($choices);
+            foreach ($subqids as $subqid) {
                 $table->data[][] = $question->format_text($question->stems[$subqid], $question->stemformat[$subqid], $qa,
                         'qtype_order', 'subquestion', $subqid);
             }
