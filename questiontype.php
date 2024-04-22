@@ -154,7 +154,7 @@ class qtype_order extends question_type {
         parent::initialise_question_instance($question, $questiondata);
 
         $question->shufflestems = true;
-        $question->horizontal = 0;
+        // $question->horizontal = 0;
         $this->initialise_combined_feedback($question, $questiondata, true);
 
         $question->stems = [];
